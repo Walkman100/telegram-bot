@@ -47,11 +47,11 @@ function msg_valid(msg)
     return false
   end
 
-  -- Before bot was started
-  if msg.date < now then
-    print('\27[36mNot valid: old msg\27[39m')
-    return false
-  end
+--  -- Before bot was started
+--  if msg.date < now then
+--    print('\27[36mNot valid: old msg\27[39m')
+--    return false
+--  end
 
   if msg.unread == 0 then
     print('\27[36mNot valid: readed\27[39m')
@@ -245,6 +245,7 @@ function load_plugins()
     if not ok then
       print('\27[31mError loading plugin '..v..'\27[39m')
       print('\27[31m'..err..'\27[39m')
+      send_msg('░▒▓█│【Walkman】│█▓▒░', 'Error loading plugin: '..v..'\n'..err, ok_cb, false)
     end
 
   end
