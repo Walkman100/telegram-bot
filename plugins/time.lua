@@ -28,7 +28,7 @@ function get_latlong(area)
   local res, code = https.request(api..parameters)
   if code ~=200 then return nil  end
   local data = json:decode(res)
- 
+
   if (data.status == "ZERO_RESULTS") then
     return nil
   end
@@ -51,7 +51,7 @@ function get_time(lat,lng)
   local timestamp = utctime()
   local parameters = "location=" ..
     URL.escape(lat) .. "," ..
-    URL.escape(lng) .. 
+    URL.escape(lng) ..
     "&timestamp="..URL.escape(timestamp)
   if api_key ~=nil then
     parameters = parameters .. "&key="..api_key
@@ -60,7 +60,7 @@ function get_time(lat,lng)
   local res,code = https.request(api..parameters)
   if code ~= 200 then return nil end
   local data = json:decode(res)
-  
+
   if (data.status == "ZERO_RESULTS") then
     return nil
   end
@@ -85,7 +85,7 @@ function getformattedLocalTime(area)
   end
   local localTime, timeZoneId = get_time(lat,lng)
 
-  return "The local time in "..timeZoneId.." is: ".. os.date(dateFormat,localTime) 
+  return "The local time in "..timeZoneId.." is: ".. os.date(dateFormat,localTime) ..", and UTC time is: ".. os.time(os.date("!*t"))
 end
 
 function run(msg, matches)
@@ -93,8 +93,8 @@ function run(msg, matches)
 end
 
 return {
-  description = "Displays the local time in an area", 
+  description = "Displays the local time in an area",
   usage = "!time [area]: Displays the local time in that area",
-  patterns = {"^!time (.*)$"}, 
+  patterns = {"^!time (.*)$"},
   run = run
 }
