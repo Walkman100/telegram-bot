@@ -5,13 +5,13 @@ function run(msg, matches)
 end
 
 return {
-  description = "Says hello to someone", 
+  description = "Says hello to someone",
   usage = "say hello to [name]",
   patterns = {
     "^say hello to (.*)$",
     "^Say hello to (.*)$"
-  }, 
-  run = run 
+  },
+  run = run
 }
 
 end

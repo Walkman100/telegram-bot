@@ -64,8 +64,8 @@ function get_http_file_name(url, headers)
   file_name = file_name or str:random(5)
 
   -- Possible headers names
-  local content_type = headers["content-type"] 
-  
+  local content_type = headers["content-type"]
+
   local extension = nil
   if content_type then
     extension = mimetype.get_mime_extension(content_type)
@@ -76,8 +76,8 @@ function get_http_file_name(url, headers)
   return file_name
 end
 
---  Saves file to /tmp/. If file_name isn't provided, 
--- will get the text after the last "/" for filename 
+--  Saves file to /tmp/. If file_name isn't provided,
+-- will get the text after the last "/" for filename
 -- and content-type for extension
 function download_to_file(url, file_name)
   print("url to download: "..url)
@@ -106,7 +106,7 @@ function download_to_file(url, file_name)
   if code ~= 200 then return nil end
 
   file_name = file_name or get_http_file_name(url, headers)
-    
+
   local file_path = "/tmp/"..file_name
   print("Saved to: "..file_path)
 
@@ -142,10 +142,10 @@ end
 -- User has privileges
 function is_sudo(msg)
   local var = false
-  -- Check users id in config 
-  for v,user in pairs(_config.sudo_users) do 
-    if user == msg.from.id then 
-      var = true 
+  -- Check users id in config
+  for v,user in pairs(_config.sudo_users) do
+    if user == msg.from.id then
+      var = true
     end
   end
   return var
@@ -167,7 +167,7 @@ function plugins_names( )
     -- Ends with .lua
     if (v:match(".lua$")) then
       table.insert(files, v)
-    end 
+    end
   end
   return files
 end
@@ -175,11 +175,11 @@ end
 -- Function name explains what it does.
 function file_exists(name)
   local f = io.open(name,"r")
-  if f ~= nil then 
-    io.close(f) 
-    return true 
-  else 
-    return false 
+  if f ~= nil then
+    io.close(f)
+    return true
+  else
+    return false
   end
 end
 
@@ -240,7 +240,7 @@ function send_photo_from_url(receiver, url, cb_function, cb_extra)
   -- If callback not provided
   cb_function = cb_function or ok_cb
   cb_extra = cb_extra or false
-  
+
   local file_path = download_to_file(url, false)
   if not file_path then -- Error
     local text = 'Error downloading the image'
@@ -255,7 +255,7 @@ end
 function send_photo_from_url_callback(cb_extra, success, result)
   local receiver = cb_extra.receiver
   local url = cb_extra.url
-  
+
   local file_path = download_to_file(url, false)
   if not file_path then -- Error
     local text = 'Error downloading the image'
@@ -277,7 +277,7 @@ function send_photos_from_url(receiver, urls)
   send_photos_from_url_callback(cb_extra)
 end
 
--- Use send_photos_from_url. 
+-- Use send_photos_from_url.
 -- This function might be difficult to understand.
 function send_photos_from_url_callback(cb_extra, success, result)
   -- cb_extra is a table containing receiver, urls and remove_path
@@ -446,7 +446,7 @@ function load_from_file(file, default_data)
     print ('Created file', file)
   else
     print ('Data loaded from file', file)
-    f:close() 
+    f:close()
   end
   return loadfile (file)()
 end

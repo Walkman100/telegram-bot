@@ -8,7 +8,7 @@ VERSION = '0.12.2'
 
 -- This function is called when tg receive a msg
 function on_msg_receive (msg)
-  
+
   if not started then
     return
   end

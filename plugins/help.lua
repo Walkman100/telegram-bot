@@ -51,7 +51,7 @@ local function run(msg, matches)
     return telegram_help()
   elseif matches[1] == "!help all" then
     return help_all()
-  else 
+  else
     local text = plugin_help(matches[1])
     if not text then
       text = telegram_help()
@@ -61,7 +61,7 @@ local function run(msg, matches)
 end
 
 return {
-  description = "Help plugin. Get info from other plugins.  ", 
+  description = "Help plugin. Get info from other plugins.  ",
   usage = {
     "!help: Show list of plugins.",
     "!help all: Show all commands for every plugin.",
@@ -71,8 +71,8 @@ return {
     "^!help$",
     "^!help all",
     "^!help (.+)"
-  }, 
-  run = run 
+  },
+  run = run
 }
 
 end

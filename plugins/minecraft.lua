@@ -9,7 +9,7 @@ local function mineSearch(ip, port, receiver) --25565
   local api = "https://api.syfaro.net/server/status"
   local parameters = "?ip="..(URL.escape(ip) or "").."&port="..(URL.escape(port) or "").."&players=true&favicon=true"
   local http = require("socket.http")
-  local respbody = {} 
+  local respbody = {}
   local body, code, headers, status = http.request{
     url = api..parameters,
     method = "GET",
