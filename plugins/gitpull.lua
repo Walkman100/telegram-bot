@@ -1,7 +1,9 @@
 do
 
 function run(msg, matches)
-  return 'Git Pulling telegram-bot repo...\n'.. run_command("git pull")
+  local receiver = get_receiver(msg)
+  send_msg(receiver, 'Git Pulling telegram-bot repo...', ok_cb, false)
+  return run_command("git pull")
 end
 
 return {
