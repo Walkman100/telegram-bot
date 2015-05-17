@@ -37,23 +37,36 @@ local function getRandomBoobs(attempt)
   return 'http://media.oboobs.ru/' .. data.preview
 end
 
-local function run(msg, matches)
+local function sendRandomButts(receiver)
   local url = nil
-  
+  url = getRandomButts()
+  if url ~= nil then
+    send_photo_from_url(receiver, url)
+  else
+    send_msg(receiver, 'Error getting butts for you, please try again later.', ok_cb, false)
+  end
+end
+
+local function sendRandomBoobs(receiver)
+  local url = nil
+  url = getRandomBoobs()
+  if url ~= nil then
+    send_photo_from_url(receiver, url)
+  else
+    send_msg(receiver, 'Error getting boobs for you, please try again later.', ok_cb, false)
+  end
+end
+
+local function run(msg, matches)
+
   if matches[1] == "!boobs" then
-    url = getRandomBoobs()
+    sendRandomBoobs(get_receiver(msg))
   end
 
   if matches[1] == "!butts" then
-    url = getRandomButts()
+    sendRandomButts(get_receiver(msg))
   end
 
-  if url ~= nil then
-    local receiver = get_receiver(msg)
-    send_photo_from_url(receiver, url)
-  else
-    return 'Error getting boobs/butts for you, please try again later.' 
-  end
 end
 
 return {
