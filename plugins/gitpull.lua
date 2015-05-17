@@ -3,7 +3,8 @@ do
 function run(msg, matches)
   local receiver = get_receiver(msg)
   send_msg(receiver, 'Git Pulling telegram-bot repo...', ok_cb, false)
-  return run_command("git pull")
+  send_msg(receiver, run_command("git pull"), ok_cb, false)
+  return nil
 end
 
 return {
