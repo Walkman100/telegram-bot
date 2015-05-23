@@ -84,7 +84,8 @@ function getformattedLocalTime(area)
   if lat == nil and lng == nil then
     return 'It seems that in "'..area..'" they do not have a concept of time.'
   end
-  return localTime, timeZoneId = get_time(lat,lng)
+  local localTime,timeZoneId = get_time(lat,lng)
+  return localTime, timeZoneId
 end
 
 function run(msg, matches)
