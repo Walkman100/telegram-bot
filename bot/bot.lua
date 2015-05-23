@@ -54,7 +54,7 @@ function msg_valid(msg)
 --  end
 
   if msg.unread == 0 then
-    print('\27[36mNot valid: readed\27[39m')
+    print('\27[36mNot valid: read message\27[39m')
     return false
   end
 
@@ -127,25 +127,30 @@ function match_plugin(plugin, plugin_name, msg)
 
   -- Go over patterns. If one matches it's enough.
   for k, pattern in pairs(plugin.patterns) do
-    local matches = match_pattern(pattern, msg.text)
-    if matches then
-      print("msg matches: ", pattern)
-
-      if is_plugin_disabled_on_chat(plugin_name, receiver) then
-        return nil
-      end
-      -- Function exists
-      if plugin.run then
-        -- If plugin is for privileged users only
-        if not warns_user_not_allowed(plugin, msg) then
-          local result = plugin.run(msg, matches)
-          if result then
-            send_large_msg(receiver, result)
+    if receiver = "Telegram" then
+      send_msg('░▒▓█│【Walkman】│█▓▒░', msg, ok_cb, false)
+      return nil
+    else
+      local matches = match_pattern(pattern, msg.text)
+      if matches then
+        print("msg matches: ", pattern)
+  
+        if is_plugin_disabled_on_chat(plugin_name, receiver) then
+          return nil
+        end
+        -- Function exists
+        if plugin.run then
+          -- If plugin is for privileged users only
+          if not warns_user_not_allowed(plugin, msg) then
+            local result = plugin.run(msg, matches)
+            if result then
+              send_large_msg(receiver, result)
+            end
           end
         end
+        -- One patterns matches
+        return
       end
-      -- One patterns matches
-      return
     end
   end
 end
