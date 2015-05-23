@@ -18,7 +18,7 @@ end
 -- Use the geocoding api to get the lattitude and longitude with accuracy specifier
 -- CHECKME: this seems to work without a key??
 function get_latlong(area)
-  local api      = base_api .. "/geocode/json?"
+  local api        = base_api .. "/geocode/json?"
   local parameters = "address=".. (URL.escape(area) or "")
   if api_key ~= nil then
     parameters = parameters .. "&key="..api_key
@@ -64,11 +64,11 @@ function get_time(lat,lng)
   if (data.status == "ZERO_RESULTS") then
     return nil
   end
+  -- Construct what we want
+  -- The local time in the location is:
+  -- timestamp + rawOffset + dstOffset
+  local localTime = timestamp + data.rawOffset + data.dstOffset
   if (data.status == "OK") then
-    -- Construct what we want
-    -- The local time in the location is:
-    -- timestamp + rawOffset + dstOffset
-    local localTime = timestamp + data.rawOffset + data.dstOffset
     return localTime, data.timeZoneId
   end
   return localTime
@@ -85,7 +85,7 @@ function getformattedLocalTime(area)
   end
   local localTime, timeZoneId = get_time(lat,lng)
 
-  return "The local time in "..timeZoneId.." is: ".. os.date(dateFormat,localTime) ..", and UTC time is: ".. os.time(os.date("!*t"))
+  return "The local time in "..timeZoneId.." is: ".. os.date(dateFormat,localTime) ..", and UTC time is: ".. os.date(dateFormat,utctime())
 end
 
 function run(msg, matches)
