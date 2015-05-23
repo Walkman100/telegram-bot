@@ -9,6 +9,7 @@ api_key  = nil
 
 base_api = "https://maps.googleapis.com/maps/api"
 dateFormat = "%H:%M on %A the %d %B"
+dateFormatAll = "%A %d %B - %H:%M:%S"
 
 -- Need the utc time for the google api
 function utctime()
@@ -83,18 +84,23 @@ function getformattedLocalTime(area)
   if lat == nil and lng == nil then
     return 'It seems that in "'..area..'" they do not have a concept of time.'
   end
-  local localTime, timeZoneId = get_time(lat,lng)
-
-  return "The local time in "..timeZoneId.." is: ".. os.date(dateFormat,localTime) ..", and UTC time is: ".. os.date(dateFormat,utctime())
+  return localTime, timeZoneId = get_time(lat,lng)
 end
 
 function run(msg, matches)
-  return getformattedLocalTime(matches[1])
+  if matches[1] == "all" then
+    local localTime, timeZoneId = getformattedLocalTime(matches[2])
+    return "The local time in "..timeZoneId.." is: ".. os.date(dateFormatAll,localTime) ..", and UTC time is: ".. os.date(dateFormatAll,utctime())
+  else
+    local localTime, timeZoneId = getformattedLocalTime(matches[1])
+    return "The local time in "..timeZoneId.." is: ".. os.date(dateFormat,localTime)
+  end  
 end
 
 return {
   description = "Displays the local time in an area",
   usage = "!time [area]: Displays the local time in that area",
-  patterns = {"^!time (.*)$"},
+          "!time all [area]: Displays comprehensive time info for an area",
+  patterns = {"^![Tt]ime (.*)$"},
   run = run
 }
