@@ -8,7 +8,7 @@
 api_key  = nil
 
 base_api = "https://maps.googleapis.com/maps/api"
-dateFormat = "%A %d %B - %H:%M:%S"
+dateFormat = "%H:%M on %A the %d %B"
 
 -- Need the utc time for the google api
 function utctime()
